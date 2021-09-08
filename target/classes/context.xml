@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean
+            id="blackListPasswordsRepImpl" class="Realisation.BlackListPasswordsRepImpl">
+        <constructor-arg name="dataSource" ref="hikari"/>
+    </bean>
+
+    <bean
+            id="signUpService" class="Realisation.SignUpService">
+        <constructor-arg name="blackList" ref="blackListPasswordsRepImpl"/>
+    </bean>
+
+    <bean
+            id="hikari" class="com.zaxxer.hikari.HikariDataSource">
+        <constructor-arg name="configuration" ref="config"/>
+    </bean>
+
+    <bean id="config" class="com.zaxxer.hikari.HikariConfig">
+        <property name="password" value="Topgear18"/>
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="username" value="postgres"/>
+        <property name="jdbcUrl" value="jdbc:postgresql://localhost:5432/BlackListPasswords"/>
+        <property name="maximumPoolSize" value="20"/>
+    </bean>
+</beans>
